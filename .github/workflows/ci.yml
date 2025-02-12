@@ -22,5 +22,5 @@ jobs:
       - name: Install Newman
         run: npm install -g newman
 
-      - name: Run Postman Collection with Newman
-        run: newman run postman/Reqres_API_Tests.postman_collection.json --reporters cli,html
+      - name: Run Postman Collections with Newman
+        run: newman run "postman/*.postman_collection.json" --reporters cli,html

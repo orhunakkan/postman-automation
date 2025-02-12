@@ -1,0 +1,197 @@
+{
+    "info": {
+        "name": "JSONPlaceholder API Tests",
+        "description": "Comprehensive test suite for JSONPlaceholder REST API",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "Posts",
+            "item": [
+                {
+                    "name": "Get All Posts",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "pm.test('Status code is 200', () => {",
+                                    "    pm.response.to.have.status(200);",
+                                    "});",
+                                    "",
+                                    "pm.test('Response is an array', () => {",
+                                    "    const jsonData = pm.response.json();",
+                                    "    pm.expect(Array.isArray(jsonData)).to.be.true;",
+                                    "});",
+                                    "",
+                                    "pm.test('Each post has required fields', () => {",
+                                    "    const jsonData = pm.response.json();",
+                                    "    jsonData.forEach(post => {",
+                                    "        pm.expect(post).to.have.property('id');",
+                                    "        pm.expect(post).to.have.property('userId');",
+                                    "        pm.expect(post).to.have.property('title');",
+                                    "        pm.expect(post).to.have.property('body');",
+                                    "    });",
+                                    "});"
+                                ]
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "GET",
+                        "url": "https://jsonplaceholder.typicode.com/posts"
+                    }
+                },
+                {
+                    "name": "Create Post",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "pm.test('Status code is 201', () => {",
+                                    "    pm.response.to.have.status(201);",
+                                    "});",
+                                    "",
+                                    "pm.test('Response has correct data', () => {",
+                                    "    const jsonData = pm.response.json();",
+                                    "    pm.expect(jsonData.title).to.equal('foo');",
+                                    "    pm.expect(jsonData.body).to.equal('bar');",
+                                    "    pm.expect(jsonData.userId).to.equal(1);",
+                                    "    pm.expect(jsonData).to.have.property('id');",
+                                    "});"
+                                ]
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"title\": \"foo\",\n    \"body\": \"bar\",\n    \"userId\": 1\n}"
+                        },
+                        "url": "https://jsonplaceholder.typicode.com/posts"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Comments",
+            "item": [
+                {
+                    "name": "Get Post Comments",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "pm.test('Status code is 200', () => {",
+                                    "    pm.response.to.have.status(200);",
+                                    "});",
+                                    "",
+                                    "pm.test('Comments have required fields', () => {",
+                                    "    const jsonData = pm.response.json();",
+                                    "    jsonData.forEach(comment => {",
+                                    "        pm.expect(comment).to.have.property('postId');",
+                                    "        pm.expect(comment).to.have.property('id');",
+                                    "        pm.expect(comment).to.have.property('name');",
+                                    "        pm.expect(comment).to.have.property('email');",
+                                    "        pm.expect(comment).to.have.property('body');",
+                                    "    });",
+                                    "});"
+                                ]
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "GET",
+                        "url": "https://jsonplaceholder.typicode.com/posts/1/comments"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Users",
+            "item": [
+                {
+                    "name": "Get All Users",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "pm.test('Status code is 200', () => {",
+                                    "    pm.response.to.have.status(200);",
+                                    "});",
+                                    "",
+                                    "pm.test('Users have required fields', () => {",
+                                    "    const jsonData = pm.response.json();",
+                                    "    jsonData.forEach(user => {",
+                                    "        pm.expect(user).to.have.property('id');",
+                                    "        pm.expect(user).to.have.property('name');",
+                                    "        pm.expect(user).to.have.property('username');",
+                                    "        pm.expect(user).to.have.property('email');",
+                                    "        pm.expect(user).to.have.property('address');",
+                                    "        pm.expect(user.address).to.have.property('street');",
+                                    "        pm.expect(user.address).to.have.property('city');",
+                                    "    });",
+                                    "});"
+                                ]
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "GET",
+                        "url": "https://jsonplaceholder.typicode.com/users"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Todos",
+            "item": [
+                {
+                    "name": "Get User Todos",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "pm.test('Status code is 200', () => {",
+                                    "    pm.response.to.have.status(200);",
+                                    "});",
+                                    "",
+                                    "pm.test('Todos have required fields', () => {",
+                                    "    const jsonData = pm.response.json();",
+                                    "    jsonData.forEach(todo => {",
+                                    "        pm.expect(todo).to.have.property('userId');",
+                                    "        pm.expect(todo).to.have.property('id');",
+                                    "        pm.expect(todo).to.have.property('title');",
+                                    "        pm.expect(todo).to.have.property('completed');",
+                                    "        pm.expect(todo.completed).to.be.a('boolean');",
+                                    "    });",
+                                    "});"
+                                ]
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "GET",
+                        "url": "https://jsonplaceholder.typicode.com/users/1/todos"
+                    }
+                }
+            ]
+        }
+    ]
+}

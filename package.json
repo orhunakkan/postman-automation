@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "newman run postman/Reqres_API_Tests.postman_collection.json",
-    "test:html": "newman run postman/Reqres_API_Tests.postman_collection.json --reporters cli,html"
+    "test": "for %f in (postman\\*.postman_collection.json) do newman run %f",
+    "test:html": "for %f in (postman\\*.postman_collection.json) do newman run %f --reporters cli,html"
   },
   "keywords": [],
   "author": "",
