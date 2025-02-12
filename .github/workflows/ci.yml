@@ -19,8 +19,11 @@ jobs:
         with:
           node-version: '22'
 
-      - name: Install Newman
-        run: npm install -g newman
+      - name: Install Dependencies
+        run: npm install
 
-      - name: Run Postman Collections with Newman
-        run: newman run "postman/*.postman_collection.json" --reporters cli,html
+      - name: Run Postman Collections
+        run: |
+          for file in postman/*.postman_collection.json; do
+            newman run "$file" --reporters cli,html
+          done
